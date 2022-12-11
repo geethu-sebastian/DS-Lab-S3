@@ -1,102 +1,77 @@
-#include <stdio.h>
-
+#include<stdio.h>
+#include<stdlib.h>
 #define MAX_SIZE 10
+int front=-1, rear=-1, queue[MAX_SIZE];
+void enqueue(int data)
+{
+  if(rear==MAX_SIZE-1)
+  printf("queue full\n");
+  else
+  {
+   if(front==-1)
+   {
+    front=0;
+   }
+  rear=rear+1;
+  queue[rear]=data;
+  }
+}
+  
 
-void enqueue(int queue[], int *front, int *rear, int value);
-int dequeue(int queue[], int *front, int *rear);
-int frontElement(int queue[], int front, int rear);
-void printQueue(int queue[], int front, int rear);
-
-int main(void) {
-  int queue[MAX_SIZE];
-  int front = -1, rear = -1;
-  int choice, value;
-
-  while (1) {
-    printf("\nQueue Operations\n");
-    printf("1. Enqueue\n");
-    printf("2. Dequeue\n");
-    printf("3. Front Element\n");
-    printf("4. Print Queue\n");
-    printf("5. Exit\n");
-    printf("Enter your choice: ");
-    scanf("%d", &choice);
-
-    switch (choice) {
+void dequeue()
+{
+  int d;
+  if(front==-1)
+  printf("Queue empty\n");
+  else
+  {
+   d=queue[front];
+   front=front+1;
+   
+   printf("Element deleted is %d\n",d);
+   if(front>rear)
+   front=rear=-1;
+  }
+}
+void print()
+{
+  for(int i=front;i<=rear;i++)
+  printf("%d\n",queue[i]);
+}
+int main()
+{
+  int choice,data;
+  do
+  {
+    printf("MENU\n");
+    printf("1.Enqueue\n");
+    printf("2.Dequeue\n");
+    printf("3.Display\n");
+    printf("Enter your choice\n");
+    scanf("%d",&choice);
+    switch(choice)
+    {
       case 1:
-        printf("Enter the value to enqueue: ");
-        scanf("%d", &value);
-        enqueue(queue, &front, &rear, value);
+      {
+        printf("Enter element to be inserted\n");
+        scanf("%d",&data);
+        enqueue(data);
         break;
+      }
       case 2:
-        value = dequeue(queue, &front, &rear);
-        if (value != -1) {
-          printf("Dequeued element: %d\n", value);
-        }
+      {
+        dequeue();
         break;
+      }
       case 3:
-        value = frontElement(queue, front, rear);
-        if (value != -1) {
-          printf("Front element: %d\n", value);
-        }
+      {
+        print();
         break;
+      }
       case 4:
-        printQueue(queue, front, rear);
-        break;
-      case 5:
-        printf("Exiting...\n");
-        return 0;
+      return 0;
       default:
-        printf("Invalid choice\n");
+      printf("Invalid choice");
     }
-  }
-
-  return 0;
+  }while(choice<5);
 }
-
-// Function to add an element to the queue
-void enqueue(int queue[], int *front, int *rear, int value) {
-  if (*rear == MAX_SIZE - 1) {
-    printf("Error: Queue is full\n");
-    return;
-  }
-
-  *rear = *rear + 1;
-  queue[*rear] = value;
-}
-
-// Function to remove an element from the queue
-int dequeue(int queue[], int *front, int *rear) {
-  if (*front == *rear) {
-    printf("Error: Queue is empty\n");
-    return -1;
-  }
-
-  *front = *front + 1;
-  return queue[*front];
-}
-
-// Function to get the front element of the queue
-int frontElement(int queue[], int front, int rear) {
-  if (front == rear) {
-    printf("Error: Queue is empty\n");
-    return -1;
-  }
-
-  return queue[front + 1];
-}
-
-// Function to print the elements of the queue
-void printQueue(int queue[], int front, int rear) {
-  if (front == rear) {
-    printf("Queue is empty\n");
-    return;
-  }
-
-  printf("Queue: ");
-  for (int i = front + 1; i <= rear; i++) {
-    printf("%d ", queue[i]);
-  }
-  printf("\n");
-}
-

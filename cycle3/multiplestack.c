@@ -1,5 +1,5 @@
 #include<stdio.h>
-#define MAX_SIZE 100
+#define MAX_SIZE 10
 int stack[MAX_SIZE],top1=-1,top2=MAX_SIZE-1;
 void push(int stackNo,int data)
 {
@@ -7,7 +7,7 @@ void push(int stackNo,int data)
     {
         if (top1==top2 - 1)
         {
-            printf("\nStack 1 full");
+            printf("\nStack overflow");
         }
         else
         {
@@ -18,7 +18,7 @@ void push(int stackNo,int data)
     {
         if (top2==top1+1)
         {
-            printf("\nStack 2 full");
+            printf("\nStack 2 overflow");
         }
         else
         {
@@ -32,7 +32,7 @@ int pop(int stackNo)
     {
         if (top1==-1)
         {
-            printf("\nStack 1 empty");
+            printf("\nStack 1 underflow");
             return -1;
         }
         return stack[top1--];
@@ -53,7 +53,7 @@ void display(int stackNo)
     {
         if (top1==-1)
         {
-            printf("\nStack 1 empty");
+            printf("\nStack 1 underflow");
             return;
         }
         printf("\nElements of stack 1\n");
@@ -64,7 +64,7 @@ void display(int stackNo)
     {
         if (top2==MAX_SIZE)
         {
-            printf("\nStack 2 empty");
+            printf("\nStack 2 underflow");
             return;
         }
         printf("\nElements of stack 2\n");

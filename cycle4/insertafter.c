@@ -9,7 +9,7 @@ struct node {
 struct node *head = NULL;
 
 
-void insertNode(int data, int before) {
+void insertNode(int data, int after) {
   
   struct node *newNode = malloc(sizeof(struct node));
 
@@ -20,21 +20,14 @@ void insertNode(int data, int before) {
   
   if (head == NULL) {
     head = newNode;
-  } 
-  else if(head->data==before){
-    
-        newNode->next=head;
-        head=newNode;
-    
-  }
-    else {
+  } else {
     struct node *temp = head;
-    while (temp->next != NULL && temp->next->data != before) {
+    while (temp != NULL && temp->data != after) {
       temp = temp->next;
     }
 
     
-    if (temp->next == NULL) {
+    if (temp == NULL) {
       printf("Node not found\n");
     } else {
       
@@ -45,7 +38,7 @@ void insertNode(int data, int before) {
 }
 
 int main() {
-  int choice, data, before;
+  int choice, data, after;
 
   while (1) {
     
@@ -59,9 +52,9 @@ int main() {
       case 1: 
         printf("Enter the data for the new node: ");
         scanf("%d", &data);
-        printf("Enter the data of the node before which the new node will be inserted: ");
-        scanf("%d", &before);
-        insertNode(data, before);
+        printf("Enter the data of the node after which the new node will be inserted: ");
+        scanf("%d", &after);
+        insertNode(data, after);
         break;
 
       case 2: 
